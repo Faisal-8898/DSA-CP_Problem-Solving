@@ -1,0 +1,29 @@
+/*
+Structure of the node of the linked list is as
+struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+*/
+
+//Function to check whether two linked lists are identical or not. 
+bool areIdentical(struct Node *head1, struct Node *head2)
+{
+    struct Node * first = head1;
+    struct Node * sec = head2;
+    while(first!=NULL && sec!=NULL){
+   
+        if(first->data != sec->data){
+            return false;
+        }
+        first = first->next;
+        sec = sec->next;
+
+    }
+   return (first!=NULL || sec!=NULL) ?  false :  true;
+    return true;
+}
