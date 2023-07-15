@@ -1,0 +1,47 @@
+https://leetcode.com/problems/palindrome-linked-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+         ListNode* prev = nullptr;
+
+       
+        // Find the middle of the linked list and reverse the first half
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            
+            ListNode* nextNode = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+         // Handle the odd-length case
+        if (fast != nullptr) {
+            slow = slow->next;
+        }
+
+        ListNode* first = slow;
+        ListNode* sec = prev;
+        while(sec!=NULL&& first!=NULL){
+            if(first->val != sec->val){
+                return false;
+            }
+            first = first->next;
+            sec = sec -> next;
+        }
+        return true;
+    }
+};
