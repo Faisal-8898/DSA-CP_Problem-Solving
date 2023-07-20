@@ -67,6 +67,23 @@ public:
         }
     }
 
+    char dequeue1() {
+        if (isEmpty()) {
+            cout << "Queue is empty. Cannot dequeue." <<endl;
+            return '\0'; // Assuming '\0' is not a valid element in the queue
+        }
+
+        char data = arr[front];
+
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front = (front + 1) % SIZE;
+        }
+
+        return data;
+    }
+
     void copyQueue(Queue &myQueue1, Queue &myQueue2)
     {
         if (myQueue1.isEmpty())
@@ -100,6 +117,25 @@ public:
         }
         cout << arr[current] << endl;
     }
+
+
+
+    string removeSpacesUsingQueue(const string& input) {
+    Queue charQueue;
+    for (char ch : input) {
+        if (ch != ' ') {
+            charQueue.enqueue(ch);
+        }
+    }
+
+    // Dequeue characters and form the new string without spaces
+    string result;
+    while (!charQueue.isEmpty()) {
+        result.push_back(charQueue.dequeue1());
+    }
+
+    return result;
+}
 };
 
 int main()
@@ -108,8 +144,13 @@ int main()
     myQueue1.enqueue(1);
     myQueue1.enqueue(2);
     myQueue1.enqueue(3);
+    myQueue1.dequeue();
 
     myQueue1.copyQueue(myQueue1,myQueue2);
+    
+
+    string result = myQueue1.removeSpacesUsingQueue("hfjsldfj sjf lssldkjf lsj fs jkldf fsjldj sdjfls");
+    cout << result;
 
     myQueue2.printQueue();
 
