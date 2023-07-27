@@ -1,158 +1,155 @@
-#include <bits/stdc++.h>
-#define SIZE 10
+#include <iostream>
 using namespace std;
 
-class Queue
-{
-private:
-    int arr[SIZE], front, rear;
+const int SIZE = 20;
 
-public:
-    Queue() : front(-1), rear(-1){};
+int arr[SIZE];
+int front = -1;
+int rear = -1;
 
-    // bool isFull()
-    // {
-    //     if (front == 0 && rear == SIZE - 1)
-    //     {
-    //         return false;
-    //     }
-    //     return true;
-    // }
+bool isFull() {
+    return (rear + 1) % SIZE == front;
+}
 
-    //  ANOTHER WAY TO HAVE THIS FUCNTION
-    bool isFull()
-    {
-        return (rear + 1) % SIZE == front;
+bool isEmpty() {
+    return front == -1 && rear == -1;
+}
+
+void enqueue(int data) {
+    if (isFull()) {
+        cout << "Queue is full. Cannot enqueue more elements." << endl;
+        return;
     }
 
-    bool isEmpty()
-    {
-        return front == -1 && rear == -1;
+    if (isEmpty()) {
+        front = rear = 0;
+    } else {
+        rear = (rear + 1) % SIZE;
     }
 
-    void enqueue(int data)
-    {
-        if (isFull())
-        {
-            cout << "queue is full ";
-            return;
-        }
-        if (isEmpty())
-        {
-            front = rear = 0;
-        }
-        else
-        {
-            rear = (rear + 1) % SIZE;
-        }
+    arr[rear] = data;
+}
 
-        arr[rear] = data;
+void dequeue() {
+    if (isEmpty()) {
+        cout << "Queue is empty. Cannot dequeue." << endl;
+        return;
     }
 
-    void dequeue()
-    {
-        if (isEmpty())
-        {
-            cout << "Queue is empty" << endl;
-            return;
-        }
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front = (front + 1) % SIZE;
+    }
+}
 
-        if (front == rear)
-        {
-            front = rear = -1;
-        }
-        else
-        {
-            front = (front + 1) % SIZE;
-        }
+char dequeue1() {
+    if (isEmpty()) {
+        cout << "Queue is empty. Cannot dequeue." << endl;
+        return '\0'; // Assuming '\0' is not a valid element in the queue
     }
 
-    char dequeue1() {
-        if (isEmpty()) {
-            cout << "Queue is empty. Cannot dequeue." <<endl;
-            return '\0'; // Assuming '\0' is not a valid element in the queue
-        }
+    char data = arr[front];
 
-        char data = arr[front];
-
-        if (front == rear) {
-            front = rear = -1;
-        } else {
-            front = (front + 1) % SIZE;
-        }
-
-        return data;
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front = (front + 1) % SIZE;
     }
 
-    void copyQueue(Queue &myQueue1, Queue &myQueue2)
-    {
-        if (myQueue1.isEmpty())
-        {
-            cout << "queue is empty , no copy operation can be happen";
-            return;
-        }
-        else
-        {
-            int i;
-            for (i = myQueue1.front; i <= myQueue1.rear; i++)
-            {
-                myQueue2.enqueue(myQueue1.arr[i]);
-            }
-        }
+    return data;
+}
+
+void copyQueue() {
+    if (isEmpty()) {
+        cout << "Queue is empty. No copy operation can be performed." << endl;
+        return;
     }
 
-    void printQueue()
-    {
-        if (isEmpty())
-        {
-            cout << "Queue is empty." << endl;
-            return;
-        }
+    int i;
+    for (i = front; i <= rear; i++) {
+        enqueue(arr[i]);
+    }
+}
 
-        int current = front;
-        while (current != rear)
-        {
-            cout << arr[current] << " ";
-            current = (current + 1) % SIZE;
-        }
-        cout << arr[current] << endl;
+void printQueue() {
+    if (isEmpty()) {
+        cout << "Queue is empty." << endl;
+        return;
     }
 
+    int current = front;
+    while (current != rear) {
+        cout << arr[current] << " ";
+        current = (current + 1) % SIZE;
+    }
+    cout << arr[current] << endl;
+}
 
-
-    string removeSpacesUsingQueue(const string& input) {
-    Queue charQueue;
+string removeSpacesUsingQueue(const string& input) {
     for (char ch : input) {
         if (ch != ' ') {
-            charQueue.enqueue(ch);
+            enqueue(ch);
         }
     }
 
     // Dequeue characters and form the new string without spaces
     string result;
-    while (!charQueue.isEmpty()) {
-        result.push_back(charQueue.dequeue1());
+    while (!isEmpty()) {
+        result.push_back(dequeue1());
     }
 
     return result;
 }
-};
 
-int main()
-{
-    Queue myQueue1, myQueue2;
-    myQueue1.enqueue(1);
-    myQueue1.enqueue(2);
-    myQueue1.enqueue(3);
-    myQueue1.dequeue();
+void deleteNeg() {
+    if (isEmpty()) {
+        cout << "Queue is empty." << endl;
+        return;
+    }
 
-    myQueue1.copyQueue(myQueue1,myQueue2);
-    
+    int originalFront = front; // Store the original front index
+    int newFront = front; // Initialize newFront to the front of the queue
 
-    string result = myQueue1.removeSpacesUsingQueue("hfjsldfj sjf lssldkjf lsj fs jkldf fsjldj sdjfls");
-    cout << result;
+    while (newFront != rear) {
+        // If the element at newFront is negative, skip it and move newFront forward
+        if (arr[newFront] < 0) {
+            newFront = (newFront + 1) % SIZE;
+        } else {
+            // If the element is non-negative, copy it to the original front index
+            arr[originalFront] = arr[newFront];
+            // Move both originalFront and newFront forward
+            originalFront = (originalFront + 1) % SIZE;
+            newFront = (newFront + 1) % SIZE;
+        }
+    }
 
-    myQueue2.printQueue();
+    // Handle the last element (at rear) separately
+    if (arr[newFront] >= 0) {
+        arr[originalFront] = arr[newFront];
+        originalFront = (originalFront + 1) % SIZE;
+    }
 
-    myQueue1.printQueue();
+    // Update front and rear indices after deletion
+    front = originalFront;
+    if (front == rear) {
+        // The queue is empty after deletion
+        front = rear = -1;
+    }
+}
+
+int main() {
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    dequeue();
+
+    copyQueue();
+
+    string result = removeSpacesUsingQueue("hfjsldfj sjf lssldkjf lsj fs jkldf fsjldj sdjfls");
+    cout << result << endl;
+
+    printQueue();
+
+    return 0;
 }
