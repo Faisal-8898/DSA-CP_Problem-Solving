@@ -32,15 +32,20 @@ bool compare(const int& a, const int& b) {
     return a < b;
 }
 
-int fibonacci(int a){
-    if()
+int fibonacci(int n){
+    if(n<=1){
+        return n;
+    }
+    else return fibonacci(n-1)+fibonacci(n-2);
+    
 }
 
 // Main function
 int main() {
     fastIO();
-
-    
+    int n;
+    cin >> n;
+    cout << fibonacci(n);
 
     return 0;
 }
