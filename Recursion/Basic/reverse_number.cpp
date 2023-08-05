@@ -34,17 +34,9 @@ bool compare(const int &a, const int &b)
     return a < b;
 }
 
-ll reverseRecur(int num)
+ll reverseNumber(int num, int sum = 0)
 {
-    static ll sum = 0;
-    if (num == 0)
-        return 0;
-    else
-    {
-        sum = sum * 10 + num % 10;
-        reverseRecur(num / 10);
-        return sum;
-    }
+    return num == 0 ? sum : reverseNumber(num / 10, sum * 10 + (num % 10));
 }
 
 int main()
@@ -53,7 +45,7 @@ int main()
 
     ll n;
     cin >> n;
-    cout << reverseRecur(n);
+    cout << reverseNumber(n);
 
     return 0;
 }
