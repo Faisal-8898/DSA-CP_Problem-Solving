@@ -85,6 +85,18 @@ node *minNode(node *root)
     return minNode(root->left);
 }
 
+
+int findTreeHeight(node* root) {
+    if (root == nullptr) {
+        return 0; // Height of an empty tree is -1
+    }
+
+    int leftHeight = findTreeHeight(root->left);
+    int rightHeight = findTreeHeight(root->right);
+
+    return std::max(leftHeight, rightHeight) + 1;
+}
+
 // Main function
 int main()
 {
@@ -102,7 +114,8 @@ int main()
     }
 
     preorder(root);
-    cout<< minNode(root)->value;
+    cout<< minNode(root)->value<< endl;
+    cout << findTreeHeight(root);
 
     return 0;
 }
