@@ -1,3 +1,4 @@
+
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -49,18 +50,20 @@ void fastIO() {
 // Custom sort function (optional)
 bool compare(const int &a, const int &b) { return a < b; }
 
-int fibonacci(int n) {
-  if (n == 1 || n == 0) {
-    return 1;
+void summ(int n, int s) {
+  if (n == 0) {
+    cout << s;
+    return;
   }
-  return n * fibonacci(n - 1);
+  summ(n - 1, s + n);
+  return;
 }
+
 // Main function
 int main() {
   fastIO();
   int n;
   cin >> n;
-  cout << fibonacci(n);
-
+  summ(n, 0);
   return 0;
 }

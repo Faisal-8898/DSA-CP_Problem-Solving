@@ -49,18 +49,21 @@ void fastIO() {
 // Custom sort function (optional)
 bool compare(const int &a, const int &b) { return a < b; }
 
-int fibonacci(int n) {
-  if (n == 1 || n == 0) {
+int power(int n, int b) {
+  if (b == 0) {
     return 1;
   }
-  return n * fibonacci(n - 1);
+  if (b == 1) {
+    return n;
+  }
+  return n * power(n, b - 1);
 }
+
 // Main function
 int main() {
   fastIO();
-  int n;
-  cin >> n;
-  cout << fibonacci(n);
+
+  cout << power(9, 3);
 
   return 0;
 }
