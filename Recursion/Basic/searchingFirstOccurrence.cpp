@@ -27,7 +27,7 @@ using namespace std;
 #define vi vector<int>
 #define vl vector<ll>
 #define pii pair<int, int>
-#define pll pair<ll, ll>
+#define pl pair<ll, ll>
 #define pb push_back
 #define mp make_pair
 #define all(x) x.begin(), x.end()
