@@ -121,10 +121,10 @@ void printArray(int arr[], int n) {
 // Main function
 int main() {
   fastIO();
-  int arr[] = {1, 23, 4, 565, 3, -123};
+  int arr[] = {1, 23, 4, 565, -123};
   int n = end(arr) - begin(arr);
   int n1 = sizeof(ddata) / sizeof(ddata[0]);
-  mergeSort(arr, 0, n);
+  mergeSort(arr, 0, n - 1);
   printArray(arr, n);
   clock_t start, end;
   int i;

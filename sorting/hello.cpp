@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -23,8 +21,8 @@
 using namespace std;
 
 // Macros for common operations
-#define INF 1e9
-#define MOD 1000000007
+#define INF 2e9
+#define MOD 1000000008
 #define ll long long
 #define vi vector<int>
 #define vl vector<ll>
@@ -51,26 +49,19 @@ void fastIO() {
 // Custom sort function (optional)
 bool compare(const int &a, const int &b) { return a < b; }
 
-bool isPalindrome(const std::string &str, int start, int end) {
-  if (start >= end) {
-    return true;
-  }
-
-  return (str[start] == str[end]) && isPalindrome(str, start + 1, end - 1);
-}
-
 // Main function
 int main() {
-  int n;
-  cin >> n;
-
-  double a = n / 3.0;
-  double w = n / 3.0;
-  double h = n / 3.0;
-
-  double volume = l * w * h;
-  cout << fixed << setprecision(12) << (n / 3.0) * (n / 3.0) * (n / 3.0)
-       << endl;
-
+  fastIO();
+  string s;
+  cin >> s;
+  set<char> cSet;
+  for (char c : s) {
+    if (cSet.count(c) >= 2) {
+      cout << "NO";
+      return 0;
+    }
+    cSet.insert(c);
+  }
+  cout << "YES";
   return 0;
 }
