@@ -52,7 +52,7 @@ bool compare(const int &a, const int &b) { return a < b; }
 void selectionSort(int arr[], int n) {
   for (int i = 0; i < n; i++) {
     int min = i;
-    for (int j = i; j < n; j++) {
+    for (int j = i + 1; j < n; j++) {
       if (arr[min] > arr[j]) {
         min = j;
       }
@@ -68,7 +68,7 @@ void bubbleSort(int arr[], int n) {
   int flag;
   for (int i = 0; i < n && flag; i++) {
     flag = 0;
-    for (int j = 0; j < n - 1; j++) {
+    for (int j = 0; j < n - 1 - i; j++) {
       if (arr[j] > arr[j + 1]) {
         int temp = arr[j];
         arr[j] = arr[j + 1];
@@ -113,11 +113,11 @@ void printArray(int arr[], int n) {
 int main() {
   fastio();
 
-  int arr[] = {30, 1, 12, 3, 67, 67, 40, 90};
+  int arr[] = {30, 1, 12, 3, 67, 67, -1, 90};
   int n = sizeof(arr) / sizeof(arr[0]);
   printArray(arr, n);
   /* selectionSort(arr, n); */
-  /* bubbleSort(arr, n); */
+  bubbleSort(arr, n);
   /* insertionSort(arr, n); */
   printArray(arr, n);
   return 0;

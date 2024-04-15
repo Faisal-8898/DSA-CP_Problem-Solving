@@ -106,6 +106,7 @@ void mergeSort(int arr[], int start, int end) {
     return;
   }
   int mid = start + (end - start) / 2;
+  int mid1 = (start + end) / 2;
   mergeSort(arr, start, mid);
   mergeSort(arr, mid + 1, end);
   merge(arr, start, mid, end);

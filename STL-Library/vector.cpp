@@ -49,45 +49,39 @@ void fastIO() {
 // Custom sort function (optional)
 bool compare(const int &a, const int &b) { return a < b; }
 
-int partition(int arr[], int start, int end) {
-  int pivot = arr[start];
-  int i = start + 1;
-  int j = end;
-  while (i <= j) {
-    while (i <= end && arr[i] <= pivot) {
-      i++;
-    }
-    while (j > start && arr[j] > pivot) {
-      j--;
-    }
-    if (i < j) {
-      swap(arr[i], arr[j]);
-    }
-  }
-  swap(arr[start], arr[j]);
-  return j;
-}
-
-void quickSort(int arr[], int start, int end) {
-  if (start < end) {
-    int q = partition(arr, start, end);
-    quickSort(arr, start, q - 1);
-    quickSort(arr, q + 1, end);
-  }
-}
-void printArray(int arr[], int n) {
-  for (int i = 0; i < n; i++) {
-    cout << arr[i] << " ";
-  }
-}
-
 // Main function
 int main() {
   fastIO();
+  vector<int> moja;
+  vector<long long> longMoja;
+  moja.push_back(23);
+  moja.push_back(123);
+  moja.push_back(54);
+  /* moja.insert(moja.begin() + 5, 992); */
+  size_t size = moja.size();
 
-  int arr[] = {1, 34, 5, -1, 985, 134};
-  int n = sizeof(arr) / sizeof(arr[0]);
-  quickSort(arr, 0, n - 1);
-  printArray(arr, n);
+  /* cout << size << " "; */
+  /* cout << moja[5] << " "; */
+  // Print the first element
+  /* cout << moja.front() << " "; */
+  /* cout << moja.back(); */
+
+  // erase individual element
+  /* moja.erase(moja.begin()); */
+
+  // see the vector is empty or not
+  if (moja.empty()) {
+    cout << "Pura khali bhai";
+  }
+
+  // sort vector
+  /* sort(moja.begin(), moja.end()); */
+  sort(moja.begin(), moja.end(), greater<int>());
+  sort(moja.begin(), moja.end(), greater<int>());
+  /* auto ashami = find(moja.begin(), moja.end(), 42); */
+  for (const int value : moja) {
+    cout << value << " ";
+  }
+
   return 0;
 }

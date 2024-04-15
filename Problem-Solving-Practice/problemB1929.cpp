@@ -21,8 +21,8 @@
 using namespace std;
 
 // Macros for common operations
-#define INF 1e9
-#define MOD 1000000007
+#define INF 4e9
+#define MOD 1000000010
 #define ll long long
 #define vi vector<int>
 #define vl vector<ll>
@@ -35,7 +35,7 @@ using namespace std;
 #define S second
 
 // Shortcuts for frequently used code
-#define FOR(i, a, b) for (int i = a; i < b; ++i)
+/* #define FOR(i, a, b) for (int i = a; i < b; ++i) */
 #define REP(i, n) FOR(i, 0, n)
 #define REV(i, a, b) for (int i = a; i >= b; --i)
 #define REPR(i, n) REV(i, n - 1, 0)
@@ -49,45 +49,21 @@ void fastIO() {
 // Custom sort function (optional)
 bool compare(const int &a, const int &b) { return a < b; }
 
-int partition(int arr[], int start, int end) {
-  int pivot = arr[start];
-  int i = start + 1;
-  int j = end;
-  while (i <= j) {
-    while (i <= end && arr[i] <= pivot) {
-      i++;
-    }
-    while (j > start && arr[j] > pivot) {
-      j--;
-    }
-    if (i < j) {
-      swap(arr[i], arr[j]);
-    }
-  }
-  swap(arr[start], arr[j]);
-  return j;
-}
-
-void quickSort(int arr[], int start, int end) {
-  if (start < end) {
-    int q = partition(arr, start, end);
-    quickSort(arr, start, q - 1);
-    quickSort(arr, q + 1, end);
-  }
-}
-void printArray(int arr[], int n) {
-  for (int i = 0; i < n; i++) {
-    cout << arr[i] << " ";
-  }
-}
-
 // Main function
 int main() {
-  fastIO();
+  ll t;
+  cin >> t;
+  while (t--) {
+    ll n, k;
+    cin >> n >> k;
+    ll roof = (4 * n) - 2;
+    double hello = (k * 1.0) / 2.0;
+    if (k == roof) {
+      cout << ceil((k * 1.0) / 2.0) + 1 << endl;
+    } else {
+      cout << ceil((k * 1.0) / 2.0) << endl;
+    }
+  }
 
-  int arr[] = {1, 34, 5, -1, 985, 134};
-  int n = sizeof(arr) / sizeof(arr[0]);
-  quickSort(arr, 0, n - 1);
-  printArray(arr, n);
   return 0;
 }
