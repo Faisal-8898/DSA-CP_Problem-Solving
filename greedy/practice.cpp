@@ -1,93 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void belman(int source, const vector<vector<pair<int, int>>> &graph, int n)
+int primsTree(int source, vector<vector<int>> adj[], int n)
 {
-    vector<int> distance(n, INT_MAX);
-    vector<int> pre(n, -1);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
-    distance[source] = 0;
+    vector<bool> vis(n, false);
+    pq.push({0, source});
+    int sum = 0;
 
-    for (int currentNode = 0; currentNode < n; currentNode++)
+    while (!pq.empty())
     {
-        for (const auto &nei : graph[currentNode])
+        auto it = pq.top();
+        pq.pop();
+        int node = it.second;
+        int dis = it.first;
+        if (vis[node])
+            continue;
+        vis[node] = true;
+        sum += dis;
+        for (auto it : adj[node])
         {
-            int nextNode = nei.first;
-            int dis = nei.second;
-
-            int newDis = distance[currentNode] + dis;
-            if (distance[currentNode] != INT_MAX && newDis < distance[nextNode])
+            int adj = it[0];
+            int edW = it[1];
+            if (!vis[adj])
             {
-                distance[nextNode] = newDis;
-                pre[nextNode] = currentNode;
+                pq.push({edW, adj});
             }
         }
     }
 
-    for (int currentNode = 0; currentNode < n; currentNode++)
-    {
-        for (const auto &nei : graph[currentNode])
-        {
-            int nextNode = nei.first;
-            int dis = nei.second;
-
-            int newDis = distance[currentNode] + dis;
-            if (distance[currentNode] != INT_MAX && newDis < distance[nextNode])
-            {
-                cout << "negative weight found";
-                return;
-            }
-        }
-    }
-
-    for (int i = 0; i < n; ++i)
-    {
-        if (distance[i] == INT_MAX)
-        {
-            cout << "Path " << source << " to " << i << ": No path" << endl;
-        }
-        else
-        {
-            cout << "Path " << source << " to " << i << ": ";
-            vector<int> path;
-            for (int at = i; at != -1; at = pre[at])
-            {
-                path.push_back(at);
-            }
-            reverse(path.begin(), path.end());
-            for (size_t j = 0; j < path.size(); ++j)
-            {
-                if (j > 0)
-                    cout << "->";
-                cout << path[j];
-            }
-            cout << " Cost: " << distance[i] << endl;
-        }
-    }
+    return sum;
 }
 
 int main()
 {
-    int n, m;
-    cin >> n >> m;
 
-    vector<vector<pair<int, int>>> graph(n);
-
-    for (int i = 0; i < m; i++)
+    int n = 5;
+    vector<vector<int>> edges = {{0, 1, 2}, {0, 2, 1}, {1, 2, 1}, {2, 3, 2}, {3, 4, 1}, {4, 2, 2}};
+    vector<vector<int>> adj[n];
+    for (auto it : edges)
     {
-        int u, v, w;
-        cin >> u >> v >> w;
-        graph[u].emplace_back(v, w);
-        graph[v].emplace_back(u, w);
+        vector<int> tmp(2);
+        tmp[0] = it[1];
+        tmp[1] = it[2];
+        adj[it[0]].push_back(tmp);
+
+        tmp[0] = it[0];
+        tmp[1] = it[2];
+        adj[it[1]].push_back(tmp);
     }
 
-    // string sourceLine;
-    // cin.ignore();
-    // getline(cin, sourceLine);
-
-    // int source = stoi(sourceLine.substr(sourceLine.find(" ") + 1));
-
-    int source;
-    cin >> source;
-    belman(source, graph, n);
+    int sum = primsTree(0, adj, n);
+    cout << sum;
 }
