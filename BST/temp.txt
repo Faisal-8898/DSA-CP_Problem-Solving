@@ -1,0 +1,12 @@
+package main
+
+type node struct {
+	value int
+	left  *node
+	right *node
+}
+
+func main() {
+	s := []int{1, 2, 5, 34, 3, 413, 1, 341, 3, 41, 41, 341}
+	hello := []int{}
+}

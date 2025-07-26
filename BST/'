@@ -1,0 +1,45 @@
+package main
+
+import "fmt"
+
+type node struct {
+	value int
+	left  *node
+	right *node
+}
+
+func (n *node) insert(val int) {
+	if n.value <= val {
+		if n.left == nil {
+			n.left = &node{value: val}
+		} else {
+			n.left.insert(val)
+		}
+	} else {
+		if n.right == nil {
+			n.right = &node{value: val}
+		} else {
+			n.right.insert(val)
+		}
+	}
+}
+
+func (n *node) preOrder() {
+	if n == nil {
+		return
+	}
+	fmt.Print(n.value, " ")
+	n.left.preOrder()
+	n.right.preOrder()
+}
+
+func main() {
+	s := []int{1, 2, 5, 34, 3, 413, 1, 341, 3, 41, 41, 341}
+	root := &node{value: 10}
+
+	for _, val := range s {
+		root.insert(val)
+	}
+
+	root.preOrder()
+}
